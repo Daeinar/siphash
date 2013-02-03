@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 class SipHash:
   def __init__(self,c=2,d=4):
     assert c >= 0 
@@ -49,7 +47,6 @@ class SipHash:
     self._v[3] ^= self._v[0]
     self._v[2] = self._rotl(self._v[2],32)
 
-
   def hash(self,m,k):
     self._k = [k & 0xffffffffffffffff, k >> 64]
 
@@ -62,7 +59,7 @@ class SipHash:
     # compression
     for i in xrange(len(self._msg)):
       self._v[3] ^= self._msg[i]
-      for j in xrange(len(self._msg)):
+      for j in xrange(self._c):
         self._sip_round()
       self._v[0] ^= self._msg[i]
     
@@ -72,14 +69,3 @@ class SipHash:
       self._sip_round()
 
     return self._v[0] ^ self._v[1] ^ self._v[2] ^ self._v[3]
-
-if __name__ == '__main__':
-  sh = SipHash()
-  k = 0x0f0e0d0c0b0a09080706050403020100
-  m = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e'
-  #m = 'I want to hash this message!nnnnnnnnnnnn'
-  #m = '\xab'
-  h = sh.hash(m,k)
-  print "{:x}".format(h)
-  
-
