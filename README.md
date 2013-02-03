@@ -1,5 +1,5 @@
 ### Python implementation of [SipHash-c-d][1], a fast short-input PRF.
-Created by Jean-Philippe Aumasson and Daniel J. Bernstein
+Created by Jean-Philippe Aumasson and Daniel J. Bernstein.
 
 #### USAGE & EXAMPLES
 See [test_siphash.py][2].
