@@ -48,7 +48,8 @@ class SipHash:
     self._v[2] = self._rotl(self._v[2],32)
 
   def hash(self,m,k):
-    self._k = [k & 0xffffffffffffffff, k >> 64]
+    assert k >= 0 and k < (1 << 128)
+    self._k = [k & self._mask, k >> 64]
 
     # initialization
     self._v = [self._k[0] ^ 0x736f6d6570736575, self._k[1] ^ 0x646f72616e646f6d,
