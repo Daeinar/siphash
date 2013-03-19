@@ -40,6 +40,6 @@ if __name__ == '__main__':
 
   m = ''
   for i in xrange(64):
-    assert sh.hash(m,k) == vectors[i]
+    assert sh(m,k) == vectors[i]
     m += chr(i)
   print("All tests passed.")

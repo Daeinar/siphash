@@ -6,6 +6,30 @@ class SipHash:
     self._d = d
     self._mask = 0xffffffffffffffff
 
+  def __call__(self,m,k):
+    assert k >= 0 and k < (1 << 128)
+    self._k = [k & self._mask, k >> 64]
+
+    # initialization
+    self._v = [self._k[0] ^ 0x736f6d6570736575, self._k[1] ^ 0x646f72616e646f6d,
+               self._k[0] ^ 0x6c7967656e657261, self._k[1] ^ 0x7465646279746573]
+
+    self._parse_msg(m)
+
+    # compression
+    for i in xrange(len(self._msg)):
+      self._v[3] ^= self._msg[i]
+      for j in xrange(self._c):
+        self._sip_round()
+      self._v[0] ^= self._msg[i]
+    
+    # finalization
+    self._v[2] ^= 0xff
+    for i in xrange(self._d):
+      self._sip_round()
+
+    return self._v[0] ^ self._v[1] ^ self._v[2] ^ self._v[3]
+
   def _parse_msg(self,m):
     l = len(m)
     self._msg = []
@@ -46,27 +70,3 @@ class SipHash:
     self._v[1] ^= self._v[2]
     self._v[3] ^= self._v[0]
     self._v[2] = self._rotl(self._v[2],32)
-
-  def hash(self,m,k):
-    assert k >= 0 and k < (1 << 128)
-    self._k = [k & self._mask, k >> 64]
-
-    # initialization
-    self._v = [self._k[0] ^ 0x736f6d6570736575, self._k[1] ^ 0x646f72616e646f6d,
-               self._k[0] ^ 0x6c7967656e657261, self._k[1] ^ 0x7465646279746573]
-
-    self._parse_msg(m)
-
-    # compression
-    for i in xrange(len(self._msg)):
-      self._v[3] ^= self._msg[i]
-      for j in xrange(self._c):
-        self._sip_round()
-      self._v[0] ^= self._msg[i]
-    
-    # finalization
-    self._v[2] ^= 0xff
-    for i in xrange(self._d):
-      self._sip_round()
-
-    return self._v[0] ^ self._v[1] ^ self._v[2] ^ self._v[3]
