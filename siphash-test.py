@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+"""
+   Tests for the Siphash reference python implementaiton.
+   ------
+
+   :copyright: (c) 2013-2014 by Philipp Jovanovic <philipp@jovanovic.io>.
+   :license: MIT, see LICENSE for more details.
+"""
 from siphash import SipHash
 
 if __name__ == '__main__':

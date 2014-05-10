@@ -1,3 +1,10 @@
+"""
+   Siphash reference python implementation.
+   ------
+
+   :copyright: (c) 2013-2014 by Philipp Jovanovic <philipp@jovanovic.io>.
+   :license: MIT, see LICENSE for more details.
+"""
 class SipHash:
 
     def __init__(self,c=2,d=4):
