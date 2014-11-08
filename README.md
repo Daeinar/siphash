@@ -2,7 +2,7 @@
 Created by Jean-Philippe Aumasson and Daniel J. Bernstein.
 
 #### USAGE & EXAMPLES
-See [siphash-test.py][2].
+See [main.py][2].
 
 [1]: http://131002.net/siphash/
-[2]: https://github.com/Daeinar/siphash/blob/master/siphash-test.py
+[2]: https://github.com/Daeinar/siphash/blob/master/main.py
