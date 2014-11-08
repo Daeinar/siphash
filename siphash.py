@@ -1,5 +1,5 @@
 """
-   Siphash reference python implementation.
+   SipHash reference python implementation.
    ------
 
    :copyright: (c) 2013-2014 by Philipp Jovanovic <philipp@jovanovic.io>.

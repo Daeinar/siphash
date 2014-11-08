@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-   Tests for the Siphash reference python implementaiton.
+   Tests for the SipHash reference python implementaiton.
    ------
 
    :copyright: (c) 2013-2014 by Philipp Jovanovic <philipp@jovanovic.io>.
