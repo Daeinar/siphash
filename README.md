@@ -1,8 +1,11 @@
 ### Python implementation of [SipHash-c-d][1], a fast short-input PRF.
 Created by Jean-Philippe Aumasson and Daniel J. Bernstein.
 
-#### USAGE & EXAMPLES
-See [main.py][2].
+The reference C implementation of SipHash can be found [here][2].
 
-[1]: http://131002.net/siphash/
-[2]: https://github.com/Daeinar/siphash/blob/master/main.py
+#### USAGE & EXAMPLES
+See [main.py][3].
+
+[1]: http://aumasson.jp/siphash/
+[2]: https://github.com/veorq/SipHash
+[3]: https://github.com/Daeinar/siphash/blob/master/main.py
