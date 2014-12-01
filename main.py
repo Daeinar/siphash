@@ -155,11 +155,12 @@ if __name__ == '__main__':
             '\x58\x53\x54\x23\x21\xf5\x67\xa0\x05\xd5\x47\xa4\xf0\x47\x59\xbd',
             '\x51\x50\xd1\x77\x2f\x50\x83\x4a\x50\x3e\x06\x9a\x97\x3f\xbd\x7c']}
 
-    tag_len = 8
-    sh = SipHash(h=tag_len)
-    k = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-    m = ''
-    for i in xrange(12):
-        assert sh(m,k) == vectors[tag_len][i]
-        m += chr(i)
-    print("All tests passed.")
+    for h in [8,16]:
+        c,d = 2,4
+        sh = SipHash(c,d,h)
+        k = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+        m = ''
+        for i in xrange(12):
+            assert sh(m,k) == vectors[h][i]
+            m += chr(i)
+        print("SipHash-{}-{}-{}: All tests passed.".format(c,d,h*8))
