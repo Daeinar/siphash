@@ -22,7 +22,7 @@ class SipHash:
         assert len(k) == 16
         msg = self.parse_msg(m)
         key = [self.u8_to_u64(k[0:8]), self.u8_to_u64(k[8:16])]
-        tag = []
+        tag = ''
 
         # initialization
         self.v = [key[0] ^ 0x736f6d6570736575, key[1] ^ 0x646f72616e646f6d,
@@ -49,17 +49,17 @@ class SipHash:
         return tag
 
     def u8_to_u64(self,x):
-        return (x[0] <<  0) | \
-               (x[1] <<  8) | \
-               (x[2] << 16) | \
-               (x[3] << 24) | \
-               (x[4] << 32) | \
-               (x[5] << 40) | \
-               (x[6] << 48) | \
-               (x[7] << 56)
+        return (ord(x[0]) <<  0) | \
+               (ord(x[1]) <<  8) | \
+               (ord(x[2]) << 16) | \
+               (ord(x[3]) << 24) | \
+               (ord(x[4]) << 32) | \
+               (ord(x[5]) << 40) | \
+               (ord(x[6]) << 48) | \
+               (ord(x[7]) << 56)
 
     def u64_to_u8(self,x):
-        return [ (x >> 8*i) & 0xff for i in xrange(8) ]
+        return b''.join([chr((x >> 8*i) & 0xff) for i in xrange(8)])
 
     def parse_msg(self,m):
         l = len(m)
