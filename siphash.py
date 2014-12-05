@@ -6,8 +6,7 @@
    :license: MIT, see LICENSE for more details.
 """
 
-from struct import unpack as load
-from struct import pack as store
+from struct import pack, unpack
 
 class SipHash:
 
@@ -25,7 +24,7 @@ class SipHash:
     def __call__(self,m,k):
         assert len(k) == 16
         msg = self.parse_msg(m)
-        key = [load('<Q', k[0:8])[0], load('<Q', k[8:16])[0]]
+        key = [self.load(k[0:8]), self.load(k[8:16])]
         tag = ''
 
         # initialization
@@ -48,9 +47,15 @@ class SipHash:
                 self.v[1] ^= self.ds[2]
             for j in xrange(self.d):
                 self.sip_round()
-            tag += store('<Q', self.v[0] ^ self.v[1] ^ self.v[2] ^ self.v[3])
+            tag += self.store(self.v[0] ^ self.v[1] ^ self.v[2] ^ self.v[3])
 
         return tag
+
+    def load(self, x):
+        return unpack('<Q', x)[0]
+
+    def store(self, x):
+        return pack('<Q', x)
 
     def parse_msg(self,m):
         l = len(m)
